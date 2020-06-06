@@ -28,6 +28,8 @@
         "vuex": "^3.4.0"
     },
     "dependencies": {
-        "vodal": "^2.4.0"
+        "vodal": "^2.4.0",
+        "vue-snotify": "^3.2.1",
+        "vue-the-mask": "^0.11.1"
     }
 }

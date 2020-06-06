@@ -54,19 +54,19 @@ export default {
                 .catch(error => reject(error))
                 .finally(() => context.commit('CHANGE_PRELOADER', false))
         })
-    },
+    },*/
 
-    destroyProduct (context, id) {
-        context.commit('CHANGE_PRELOADER', true)
+    destroyPaciente (context, id) {
+        //context.commit('CHANGE_PRELOADER', true)
 
         return new Promise((resolve, reject) => {
             axios.delete(`${URL_BASE}${RESOURCE}/${id}`)
                 .then(response => resolve())
                 .catch(error => {
                     reject();
-                    context.commit('CHANGE_PRELOADER', false)
+                    //context.commit('CHANGE_PRELOADER', false)
                 })
                 //.finally(() => context.commit('CHANGE_PRELOADER', false))
         })
-    }*/
+    }
 }

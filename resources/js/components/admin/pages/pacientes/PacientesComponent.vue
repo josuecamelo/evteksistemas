@@ -155,14 +155,14 @@
                 }
             },
             destroy (id) {
-                /*this.$store.dispatch('destroyProduct', id)
+                this.$store.dispatch('destroyPaciente', id)
                     .then(response => {
                         this.$snotify.success('Tudo certo', 'Deletou o Produto')
-                        this.loadProducts(1)
+                        this.loadPacientes(1)
                     })
                     .catch( errors => {
                         //this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Produto')
-                    })*/
+                    })
             }
         },
         components: {

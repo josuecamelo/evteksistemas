@@ -8,7 +8,7 @@
                 <div class="form-row">
                     <div class="col-2">
                         <div :class="['form-group', {'has-error': errors.cpf }]">
-                            <input type="text" v-model="paciente.cpf" class="form-control" placeholder="CPF"/>
+                            <input type="text" v-mask="'###.###.###-##'" maxlength="14" v-model="paciente.cpf" class="form-control" placeholder="CPF"/>
                             <div v-if="errors.cpf">
                                 {{ errors.cpf[0] }}
                             </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-2">
                         <div :class="['form-group', {'has-error': errors.data_nasc }]">
-                            <input type="text" v-model="paciente.data_nasc" class="form-control"
+                            <input type="text" v-mask="'##/##/####'" v-model="paciente.data_nasc" class="form-control"
                                    placeholder="Nascimento"/>
                             <div v-if="errors.data_nasc">
                                 {{ errors.data_nasc[0] }}
@@ -82,7 +82,7 @@
                 <div class="form-row">
                     <div class="col-2">
                         <div :class="['form-group', {'has-error': errors.cep }]">
-                            <input type="text" v-model="paciente.cep" class="form-control" placeholder="CEP"/>
+                            <input type="text" v-model="paciente.cep" maxlength="9" v-mask="'#####-###'" class="form-control" placeholder="CEP"/>
                             <div v-if="errors.cep">
                                 {{ errors.cep[0] }}
                             </div>
@@ -157,6 +157,22 @@
                                 {{ errors.uf[0] }}
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 float-left align-content-md-center">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <button :disabled="update ? !update : ''" class="btn btn-md btn-primary">Atualizar</button>
+                        <button :disabled="!update ? update : ''" class="btn btn-md btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 float-right" style="margin-left: -10px !important;">
+                <div class="form-group">
+                    <div class="col-md-6 float-right">
+                        <input type="text" style="margin-left: 15px !important;" placeholder="Buscar..." class="form-control" />
                     </div>
                 </div>
             </div>
