@@ -2172,18 +2172,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
         this.search = filter;
         this.loadProducts(1)
     },
-    hideModal () {
-        this.showModal = false;
+    */
+    success: function success() {
+      this.loadPacientes(1);
     },
-    success () {
-        this.hideModal()
-        this.loadProducts(1)
-    },
-    create () {
-        this.showModal = true;
-        this.update = false;
-        this.reset()
-    },*/
     reset: function reset() {
       this.paciente = {
         id: '',
@@ -2476,7 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
       var action = this.update ? 'updatePaciente' : 'storePaciente';
       var msg = this.update ? 'Atualizado' : 'Cadastrado';
       var formData = new FormData();
-      if (this.upload != null) formData.append('image', this.upload);
+      if (this.upload != null) formData.append('imagem', this.upload);
       formData.append('id', this.paciente.id);
       formData.append('cpf', this.paciente.cpf);
       formData.append('nome', this.paciente.nome);
@@ -2505,11 +2497,14 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              _this.$snotify.remove(toast.id), _this.reset();
+              _this.$snotify.remove(toast.id), console.log('adf');
             }
           }]
-        }); //this.$emit('success')
+        });
 
+        _this.reset();
+
+        _this.$emit('success');
       })["catch"](function (errors) {
         _this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
           timeout: 10000,
@@ -39033,7 +39028,8 @@ var render = function() {
     "div",
     [
       _c("paciente-form-component", {
-        attrs: { paciente: _vm.paciente, update: _vm.update }
+        attrs: { paciente: _vm.paciente, update: _vm.update },
+        on: { success: _vm.success }
       }),
       _vm._v(" "),
       _c(

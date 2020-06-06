@@ -31,9 +31,21 @@ class Paciente extends Model
         'uf'
     ];
 
-    public function getDataNascAttribute($value)
+    public function getDataNascAttribute()
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+        return Carbon::createFromFormat('Y-m-d', $this->attributes['data_nasc'])->format('d/m/Y');
+    }
+
+    public function setDataNascAttribute($value){
+        $this->attributes['data_nasc'] = \DateTime::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function setCpfAttribute($value){
+        $this->attributes['cpf'] = $this->removerPontuacoes($value);
+    }
+
+    public function setCepAttribute($value){
+        $this->attributes['cep'] = $this->removerPontuacoes($value);
     }
 
     public function getResults($data, $total)
@@ -41,5 +53,14 @@ class Paciente extends Model
         return $this
             ->orderBy('id', 'DESC')
             ->paginate($total);
+    }
+
+    protected function removerPontuacoes($valor){
+        $valor = trim($valor);
+        $valor = str_replace(".", "", $valor);
+        $valor = str_replace(",", "", $valor);
+        $valor = str_replace("-", "", $valor);
+        $valor = str_replace("/", "", $valor);
+        return $valor;
     }
 }

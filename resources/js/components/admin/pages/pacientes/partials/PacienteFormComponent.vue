@@ -222,11 +222,10 @@
             onSubmit() {
                 let action = this.update ? 'updatePaciente' : 'storePaciente'
                 let msg = this.update ? 'Atualizado' : 'Cadastrado'
-
                 const formData = new FormData()
 
                 if(this.upload != null)
-                    formData.append('image', this.upload);
+                    formData.append('imagem', this.upload);
 
                 formData.append('id', this.paciente.id);
                 formData.append('cpf', this.paciente.cpf);
@@ -258,11 +257,12 @@
                             buttons: [
                                 {text: 'Ok', action: (toast) => {
                                     this.$snotify.remove(toast.id),
-                                    this.reset()
+                                    console.log('adf');
                                 }},
                             ]
                         })
-                        //this.$emit('success')
+                        this.reset()
+                        this.$emit('success')
                     })
                     .catch( (errors) => {
                         this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {

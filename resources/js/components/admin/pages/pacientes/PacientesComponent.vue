@@ -1,6 +1,6 @@
 <template>
     <div>
-        <paciente-form-component :paciente="paciente" :update="update" />
+        <paciente-form-component :paciente="paciente" :update="update" @success="success" />
 
         <table class="table table-sm table-responsive-sm table-striped">
             <thead class="thead-light">
@@ -131,18 +131,10 @@
                 this.search = filter;
                 this.loadProducts(1)
             },
-            hideModal () {
-                this.showModal = false;
-            },
+           */
             success () {
-                this.hideModal()
-                this.loadProducts(1)
+                this.loadPacientes(1)
             },
-            create () {
-                this.showModal = true;
-                this.update = false;
-                this.reset()
-            },*/
             reset () {
                 this.paciente = {
                     id: '',
