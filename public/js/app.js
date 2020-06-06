@@ -1968,11 +1968,12 @@ __webpack_require__.r(__webpack_exports__);
         timeout: 10000,
         showProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
+        position: 'centerCenter',
         buttons: [{
           text: 'Não',
-          action: function action() {
-            console.log('não');
+          action: function action(toast) {
+            return _this.$snotify.remove(toast.id);
           }
         }, {
           text: 'Sim',
@@ -2187,10 +2188,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
       var _this2 = this;
 
       this.$store.dispatch('destroyPaciente', id).then(function (response) {
-        _this2.$snotify.success('Tudo certo', 'Deletou o Produto');
+        _this2.$snotify.success('Alerta', 'Paciente Excluído com Sucesso');
 
         _this2.loadPacientes(1);
-      })["catch"](function (errors) {//this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Produto')
+      })["catch"](function (errors) {
+        _this2.$snotify.error('Algo de Errado', 'Não foi possível deletar o Paciente');
       });
     }
   },

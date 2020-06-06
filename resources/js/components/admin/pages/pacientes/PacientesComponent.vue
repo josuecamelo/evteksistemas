@@ -157,11 +157,11 @@
             destroy (id) {
                 this.$store.dispatch('destroyPaciente', id)
                     .then(response => {
-                        this.$snotify.success('Tudo certo', 'Deletou o Produto')
+                        this.$snotify.success('Alerta', 'Paciente Excluído com Sucesso')
                         this.loadPacientes(1)
                     })
                     .catch( errors => {
-                        //this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Produto')
+                        this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Paciente')
                     })
             }
         },

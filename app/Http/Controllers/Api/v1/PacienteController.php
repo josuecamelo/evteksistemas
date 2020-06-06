@@ -120,18 +120,18 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($id)
+    public function destroy($id)
     {
-        if (!$product = $this->product->find($id))
+        if (!$paciente = $this->pacienteModel->find($id))
             return response()->json(['error' => 'Not Found'], 404);
 
-        if ($product->image) {
+        /*if ($product->image) {
             if (Storage::exists("{$this->path}/{$product->image}"))
                 Storage::delete("{$this->path}/{$product->image}");
-        }
+        }*/
 
-        $product->delete();
+        $paciente->delete();
 
         return response()->json(['success' => true], 204);
-    }*/
+    }
 }

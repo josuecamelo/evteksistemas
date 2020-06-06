@@ -19,9 +19,10 @@
                     timeout: 10000,
                     showProgressBar: true,
                     closeOnClick: true,
-                    pauseOnHover: true,
+                    pauseOnHover: false,
+                    position: 'centerCenter',
                     buttons: [
-                        {text: 'Não', action: () => { console.log('não')}},
+                        {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
                         {text: 'Sim', action: () => this.$emit('destroy', item.id)},
                     ]
                 })
