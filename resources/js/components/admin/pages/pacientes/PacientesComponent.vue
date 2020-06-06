@@ -111,7 +111,6 @@
                     pauseOnHover: false,
                     position: 'centerCenter',
                     buttons: [
-                        {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
                         {text: 'Sim', action: (toast) => {
                             this.reset()
                             this.$store.dispatch('loadPaciente', id)
@@ -124,6 +123,7 @@
                                 })
                             this.$snotify.remove(toast.id)
                         }},
+                        {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
                     ]
                 })
             },
@@ -168,7 +168,18 @@
             destroy (id) {
                 this.$store.dispatch('destroyPaciente', id)
                     .then(response => {
-                        this.$snotify.success('Alerta', 'Paciente Excluído com Sucesso')
+                        this.$snotify.success('Paciente Excluído com Sucesso', 'Alerta', {
+                            timeout: 10000,
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            position: 'centerCenter',
+                            buttons: [
+                                {text: 'Ok', action: (toast) => this.$snotify.remove(toast.id),},
+                            ]
+                        })
+
+
                         this.loadPacientes(1)
                     })
                     .catch( errors => {

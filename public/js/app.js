@@ -1971,14 +1971,16 @@ __webpack_require__.r(__webpack_exports__);
         pauseOnHover: false,
         position: 'centerCenter',
         buttons: [{
+          text: 'Sim',
+          action: function action(toast) {
+            _this.$emit('destroy', item.id);
+
+            _this.$snotify.remove(toast.id);
+          }
+        }, {
           text: 'Não',
           action: function action(toast) {
             return _this.$snotify.remove(toast.id);
-          }
-        }, {
-          text: 'Sim',
-          action: function action() {
-            return _this.$emit('destroy', item.id);
           }
         }]
       });
@@ -2144,11 +2146,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
         pauseOnHover: false,
         position: 'centerCenter',
         buttons: [{
-          text: 'Não',
-          action: function action(toast) {
-            return _this.$snotify.remove(toast.id);
-          }
-        }, {
           text: 'Sim',
           action: function action(toast) {
             _this.reset();
@@ -2161,6 +2158,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
             });
 
             _this.$snotify.remove(toast.id);
+          }
+        }, {
+          text: 'Não',
+          action: function action(toast) {
+            return _this.$snotify.remove(toast.id);
           }
         }]
       });
@@ -2208,7 +2210,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
       var _this2 = this;
 
       this.$store.dispatch('destroyPaciente', id).then(function (response) {
-        _this2.$snotify.success('Alerta', 'Paciente Excluído com Sucesso');
+        _this2.$snotify.success('Paciente Excluído com Sucesso', 'Alerta', {
+          timeout: 10000,
+          showProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          position: 'centerCenter',
+          buttons: [{
+            text: 'Ok',
+            action: function action(toast) {
+              return _this2.$snotify.remove(toast.id);
+            }
+          }]
+        });
 
         _this2.loadPacientes(1);
       })["catch"](function (errors) {

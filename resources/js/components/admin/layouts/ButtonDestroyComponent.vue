@@ -22,8 +22,11 @@
                     pauseOnHover: false,
                     position: 'centerCenter',
                     buttons: [
+                        {text: 'Sim', action: (toast) => {
+                            this.$emit('destroy', item.id)
+                            this.$snotify.remove(toast.id)
+                        }},
                         {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
-                        {text: 'Sim', action: () => this.$emit('destroy', item.id)},
                     ]
                 })
             },
