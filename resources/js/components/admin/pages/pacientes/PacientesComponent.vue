@@ -1,7 +1,9 @@
 <template>
     <div>
-        <table class="table">
-            <thead>
+        <paciente-form-component :paciente="paciente" :update="update" />
+
+        <table class="table table-sm table-responsive-sm table-striped">
+            <thead class="thead-light">
             <tr>
                 <th>Nome</th>
                 <th>Idade</th>
@@ -11,11 +13,11 @@
             </thead>
             <tbody>
             <tr v-for="paciente in pacientes.data" :key="paciente.id">
-                <td>{{ paciente.nome }}</td>
-                <td>{{ paciente.data_nasc | calcIdade }}</td>
-                <td>{{ paciente.cpf }}</td>
-                <td>
-                    <a href="#" @click.prevent="edit(paciente.id)" class="btn btn-info">Editar</a>
+                <td class="align-middle">{{ paciente.nome }}</td>
+                <td class="align-middle">{{ paciente.data_nasc | calcIdade }}</td>
+                <td class="align-middle">{{ paciente.cpf }}</td>
+                <td class="d-inline-flex align-middle">
+                    <a href="#" @click.prevent="edit(paciente.id)" class="btn btn-primary btn-xs">Editar</a>
                     <destroy :item="paciente" @destroy="destroy"/>
                 </td>
             </tr>

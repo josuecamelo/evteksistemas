@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="#" @click.prevent="confirmDelete(item)" class="btn btn-danger">Remover</a>
+        <a href="#" @click.prevent="confirmDelete(item)" class="btn btn-danger btn-xs">Remover</a>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
         },
         methods: {
             confirmDelete (item) {
-                this.$snotify.error(`Deseja realmente excluir o produto ${item.name}`, 'Confirma?', {
+                /*this.$snotify.error(`Deseja realmente excluir o produto ${item.name}`, 'Confirma?', {
                     timeout: 10000,
                     showProgressBar: true,
                     closeOnClick: true,
@@ -24,7 +24,7 @@
                         {text: 'Não', action: () => { console.log('não')}},
                         {text: 'Sim', action: () => this.$emit('destroy', item.id)}, //tem que escultar o evento no componente dentro do componente pai
                     ]
-                })
+                })*/
             },
         }
     }
