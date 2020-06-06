@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\StoreUpdatePacienteFormRequest;
 use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Http\Requests\StoreUpdateProductFormRequest;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class PacienteController extends Controller
 {
@@ -40,16 +39,16 @@ class PacienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    /*public function store(StoreUpdateProductFormRequest $request)
+    public function store(StoreUpdatePacienteFormRequest $request)
     {
         $data = $request->all();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
             $name = $request->name;
             $extension = $request->image->extension();
 
             $nameFile = "{$name}.{$extension}";
-            $data['image'] = $nameFile;
+            $data['imagem'] = $nameFile;
 
             $upload = $request->image->storeAs($this->path, $nameFile);
 
@@ -57,10 +56,10 @@ class PacienteController extends Controller
                 return response()->json(['error' => 'Fail_Upload'], 500);
         }
 
-        $product = $this->product->create($data);
+        $paciente = $this->pacienteModel->create($data);
 
-        return response()->json($product, 201);
-    }*/
+        return response()->json($paciente, 201);
+    }
 
     /**
      * Display the specified resource.
@@ -84,24 +83,24 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function update(StoreUpdateProductFormRequest $request, $id)
+    public function update(StoreUpdatePacienteFormRequest $request, $id)
     {
-        if (!$product = $this->product->find($id))
+        if (!$paciente = $this->pacienteModel->find($id))
             return response()->json(['error' => 'Not Found'], 404);
 
         $data = $request->all();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($product->image) {
-                if (Storage::exists("{$this->path}/{$product->image}"))
-                    Storage::delete("{$this->path}/{$product->image}");
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            if ($paciente->imagem) {
+                if (Storage::exists("{$this->path}/{$paciente->imagem}"))
+                    Storage::delete("{$this->path}/{$paciente->imagem}");
             }
 
             $name = $request->name;
             $extension = $request->image->extension();
 
             $nameFile = "{$name}.{$extension}";
-            $data['image'] = $nameFile;
+            $data['imagem'] = $nameFile;
 
             $upload = $request->image->storeAs($this->path, $nameFile);
 
@@ -109,10 +108,10 @@ class PacienteController extends Controller
                 return response()->json(['error' => 'Fail_Upload'], 500);
         }
 
-        $product->update($data);
+        $paciente->update($data);
 
-        return response()->json($product);
-    }*/
+        return response()->json($paciente);
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -164,8 +164,8 @@
             <div class="col-md-6 float-left align-content-md-center">
                 <div class="form-group">
                     <div class="col-md-6">
-                        <button :disabled="update ? !update : ''" class="btn btn-md btn-primary">Atualizar</button>
-                        <button :disabled="!update ? update : ''" class="btn btn-md btn-success">Salvar</button>
+                        <button type="submit" :disabled="update ? !update : ''" class="btn btn-md btn-primary">Atualizar</button>
+                        <button type="submit" :disabled="!update ? update : ''" class="btn btn-md btn-success">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -220,27 +220,61 @@
         },
         methods: {
             onSubmit() {
-                /*let action = this.update ? 'updateProduct' : 'storeProduct'
+                let action = this.update ? 'updatePaciente' : 'storePaciente'
+                let msg = this.update ? 'Atualizado' : 'Cadastrado'
+
                 const formData = new FormData()
 
                 if(this.upload != null)
                     formData.append('image', this.upload);
 
-                formData.append('id', this.product.id);
-                formData.append('name', this.product.name);
-                formData.append('description', this.product.description);
-                formData.append('category_id', this.product.category_id);
+                formData.append('id', this.paciente.id);
+                formData.append('cpf', this.paciente.cpf);
+                formData.append('nome', this.paciente.nome);
+                formData.append('rg', this.paciente.rg);
+                formData.append('cartao_sus', this.paciente.cartao_sus);
+                formData.append('sexo', this.paciente.sexo);
+                formData.append('data_nasc', this.paciente.data_nasc);
+                formData.append('nome_mae', this.paciente.nome_mae);
+                formData.append('telefone', this.paciente.telefone);
+                formData.append('cep', this.paciente.cep);
+                formData.append('logradouro', this.paciente.logradouro);
+                formData.append('numero', this.paciente.numero);
+                formData.append('quadra', this.paciente.quadra);
+                formData.append('lote', this.paciente.lote);
+                formData.append('complemento', this.paciente.complemento);
+                formData.append('bairro', this.paciente.bairro);
+                formData.append('cidade', this.paciente.cidade);
+                formData.append('uf', this.paciente.uf);
 
                 this.$store.dispatch(action, formData)
                     .then(() => {
-                        this.$snotify.success('Sucesso ao enviar!')
+                        this.$snotify.success('Paciente Cadastro com Sucesso', 'Alerta de Sucesso', {
+                            timeout: 10000,
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            position: 'centerCenter',
+                            buttons: [
+                                {text: 'Ok', action: (toast) => this.$snotify.remove(toast.id),},
+                            ]
+                        })
                         this.reset()
                         this.$emit('success')
                     })
                     .catch(errors => {
-                        this.$snotify.error('Algo Errado', 'Erro')
+                        this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
+                            timeout: 10000,
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            position: 'centerCenter',
+                            buttons: [
+                                {text: 'Ok', action: (toast) => this.$snotify.remove(toast.id),},
+                            ]
+                        })
                         this.errors = errors.data.errors
-                    })*/
+                    })
             },
             reset() {
                 this.errors = {}

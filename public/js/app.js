@@ -2471,24 +2471,65 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmit: function onSubmit() {
-      /*let action = this.update ? 'updateProduct' : 'storeProduct'
-      const formData = new FormData()
-       if(this.upload != null)
-          formData.append('image', this.upload);
-       formData.append('id', this.product.id);
-      formData.append('name', this.product.name);
-      formData.append('description', this.product.description);
-      formData.append('category_id', this.product.category_id);
-       this.$store.dispatch(action, formData)
-          .then(() => {
-              this.$snotify.success('Sucesso ao enviar!')
-              this.reset()
-              this.$emit('success')
-          })
-          .catch(errors => {
-              this.$snotify.error('Algo Errado', 'Erro')
-              this.errors = errors.data.errors
-          })*/
+      var _this = this;
+
+      var action = this.update ? 'updatePaciente' : 'storePaciente';
+      var msg = this.update ? 'Atualizado' : 'Cadastrado';
+      var formData = new FormData();
+      if (this.upload != null) formData.append('image', this.upload);
+      formData.append('id', this.paciente.id);
+      formData.append('cpf', this.paciente.cpf);
+      formData.append('nome', this.paciente.nome);
+      formData.append('rg', this.paciente.rg);
+      formData.append('cartao_sus', this.paciente.cartao_sus);
+      formData.append('sexo', this.paciente.sexo);
+      formData.append('data_nasc', this.paciente.data_nasc);
+      formData.append('nome_mae', this.paciente.nome_mae);
+      formData.append('telefone', this.paciente.telefone);
+      formData.append('cep', this.paciente.cep);
+      formData.append('logradouro', this.paciente.logradouro);
+      formData.append('numero', this.paciente.numero);
+      formData.append('quadra', this.paciente.quadra);
+      formData.append('lote', this.paciente.lote);
+      formData.append('complemento', this.paciente.complemento);
+      formData.append('bairro', this.paciente.bairro);
+      formData.append('cidade', this.paciente.cidade);
+      formData.append('uf', this.paciente.uf);
+      this.$store.dispatch(action, formData).then(function () {
+        _this.$snotify.success('Paciente Cadastro com Sucesso', 'Alerta de Sucesso', {
+          timeout: 10000,
+          showProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          position: 'centerCenter',
+          buttons: [{
+            text: 'Ok',
+            action: function action(toast) {
+              return _this.$snotify.remove(toast.id);
+            }
+          }]
+        });
+
+        _this.reset();
+
+        _this.$emit('success');
+      })["catch"](function (errors) {
+        _this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
+          timeout: 10000,
+          showProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          position: 'centerCenter',
+          buttons: [{
+            text: 'Ok',
+            action: function action(toast) {
+              return _this.$snotify.remove(toast.id);
+            }
+          }]
+        });
+
+        _this.errors = errors.data.errors;
+      });
     },
     reset: function reset() {
       this.errors = {};
@@ -2512,12 +2553,12 @@ __webpack_require__.r(__webpack_exports__);
       this.previewImage(files[0]);
     },
     previewImage: function previewImage(file) {
-      var _this = this;
+      var _this2 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this.imagePreview = e.target.result;
+        _this2.imagePreview = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -39864,7 +39905,10 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-md btn-primary",
-                    attrs: { disabled: _vm.update ? !_vm.update : "" }
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.update ? !_vm.update : ""
+                    }
                   },
                   [_vm._v("Atualizar")]
                 ),
@@ -39873,7 +39917,10 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-md btn-success",
-                    attrs: { disabled: !_vm.update ? _vm.update : "" }
+                    attrs: {
+                      type: "submit",
+                      disabled: !_vm.update ? _vm.update : ""
+                    }
                   },
                   [_vm._v("Salvar")]
                 )
@@ -58383,19 +58430,15 @@ var CONFIGS = {
     })["finally"](function () {//
     });
   },
-
-  /*storeProduct (context, formData) {
-      context.commit('CHANGE_PRELOADER', true)
-       return new Promise((resolve, reject) => {
-          axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
-              .then(response => resolve())
-              .catch(error => {
-                  context.commit('CHANGE_PRELOADER', false)
-                  reject(error.response)
-              })
-          // .finally(() => context.commit('PRELOADER', false))
-      })
-  },*/
+  storePaciente: function storePaciente(context, formData) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), formData, CONFIGS).then(function (response) {
+        return resolve();
+      })["catch"](function (error) {
+        reject(error.response);
+      }); // .finally(() => context.commit('PRELOADER', false))
+    });
+  },
   loadPaciente: function loadPaciente(context, id) {
     //context.commit('CHANGE_PRELOADER', true)
     return new Promise(function (resolve, reject) {
@@ -58407,24 +58450,22 @@ var CONFIGS = {
       });
     });
   },
-
-  /*updateProduct (context, formData) {
-      context.commit('CHANGE_PRELOADER', true)
-       formData.append('_method', 'PUT')
-       return new Promise((resolve, reject) => {
-          axios.post(`${URL_BASE}${RESOURCE}/${formData.get('id')}`, formData)
-              .then(response => resolve())
-              .catch(error => reject(error))
-              .finally(() => context.commit('CHANGE_PRELOADER', false))
-      })
-  },*/
+  updatePaciente: function updatePaciente(context, formData) {
+    formData.append('_method', 'PUT');
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE, "/").concat(formData.get('id')), formData).then(function (response) {
+        return resolve();
+      })["catch"](function (error) {
+        return reject(error);
+      }); //.finally(() => { console.log('falha') })
+    });
+  },
   destroyPaciente: function destroyPaciente(context, id) {
-    //context.commit('CHANGE_PRELOADER', true)
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE, "/").concat(id)).then(function (response) {
         return resolve();
       })["catch"](function (error) {
-        reject(); //context.commit('CHANGE_PRELOADER', false)
+        reject();
       }); //.finally(() => context.commit('CHANGE_PRELOADER', false))
     });
   }

@@ -17,19 +17,16 @@ export default {
                 //
             })
     },
-    /*storeProduct (context, formData) {
-        context.commit('CHANGE_PRELOADER', true)
-
+    storePaciente (context, formData) {
         return new Promise((resolve, reject) => {
             axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
                 .then(response => resolve())
                 .catch(error => {
-                    context.commit('CHANGE_PRELOADER', false)
                     reject(error.response)
                 })
             // .finally(() => context.commit('PRELOADER', false))
         })
-    },*/
+    },
 
     loadPaciente (context, id) {
         //context.commit('CHANGE_PRELOADER', true)
@@ -43,28 +40,22 @@ export default {
         })
     },
 
-    /*updateProduct (context, formData) {
-        context.commit('CHANGE_PRELOADER', true)
-
+    updatePaciente (context, formData) {
         formData.append('_method', 'PUT')
-
         return new Promise((resolve, reject) => {
             axios.post(`${URL_BASE}${RESOURCE}/${formData.get('id')}`, formData)
                 .then(response => resolve())
                 .catch(error => reject(error))
-                .finally(() => context.commit('CHANGE_PRELOADER', false))
+                //.finally(() => { console.log('falha') })
         })
-    },*/
+    },
 
     destroyPaciente (context, id) {
-        //context.commit('CHANGE_PRELOADER', true)
-
         return new Promise((resolve, reject) => {
             axios.delete(`${URL_BASE}${RESOURCE}/${id}`)
                 .then(response => resolve())
                 .catch(error => {
                     reject();
-                    //context.commit('CHANGE_PRELOADER', false)
                 })
                 //.finally(() => context.commit('CHANGE_PRELOADER', false))
         })

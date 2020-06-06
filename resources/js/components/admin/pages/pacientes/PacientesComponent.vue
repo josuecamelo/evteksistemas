@@ -179,7 +179,6 @@
                             ]
                         })
 
-
                         this.loadPacientes(1)
                     })
                     .catch( errors => {
