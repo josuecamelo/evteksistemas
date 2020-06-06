@@ -1,10 +1,11 @@
 <template>
     <div>
-        <table class="table table-responsive table-bordered">
+        <table class="table">
             <thead>
             <tr>
                 <th>Nome</th>
                 <th>Idade</th>
+                <th>CPF</th>
                 <th width="200">Ações</th>
             </tr>
             </thead>
@@ -12,15 +13,22 @@
             <tr v-for="paciente in pacientes.data" :key="paciente.id">
                 <td>{{ paciente.nome }}</td>
                 <td>{{ paciente.data_nasc | calcIdade }}</td>
+                <td>{{ paciente.cpf }}</td>
+                <td>
+                    <a href="#" @click.prevent="edit(paciente.id)" class="btn btn-info">Editar</a>
+                    <destroy :item="paciente" @destroy="destroy"/>
+                </td>
             </tr>
             </tbody>
         </table>
 
-        <paginate
-            :pagination="pacientes"
-            :offset="10"
-            @paginate="loadPacientes">
-        </paginate>
+        <div class="float-right">
+            <paginate
+                :pagination="pacientes"
+                :offset="10"
+                @paginate="loadPacientes">
+            </paginate>
+        </div>
     </div>
 </template>
 
@@ -29,6 +37,7 @@
     import Vue from 'vue';
     import PaginationComponent from '../../../layouts/PaginationComponent'
     import PacienteFormComponent from "./partials/PacienteFormComponent";
+    import ButtonDestroyComponent from "../../layouts/ButtonDestroyComponent";
 
     Vue.filter('calcIdade', function (value) {
         let d = new Date,
@@ -54,13 +63,27 @@
         data() {
             return {
                 search: '',
-                /*product: {
+                paciente: {
                     id: '',
-                    name: '',
-                    description: '',
-                    category_id: '',
+                    cpf: '',
+                    nome: '',
+                    rg: '',
+                    cartao_sus: '',
+                    sexo: '',
+                    data_nasc: '',
+                    nome_mae: '',
+                    telefone: '',
+                    cep: '',
+                    logradouro: '',
+                    numero: '',
+                    quadra: '',
+                    lote: '',
+                    complemento: '',
+                    bairro: '',
+                    cidade: '',
+                    uf: '',
                 },
-                update: false,*/
+                update: false,
             }
         },
         computed: {
@@ -78,20 +101,20 @@
             loadPacientes(page) {
                 this.$store.dispatch('loadPacientes', {...this.params, page})
             },
-            /*edit (id) {
+            edit (id) {
                 this.reset()
 
-                this.$store.dispatch('loadProduct', id)
+                this.$store.dispatch('loadPaciente', id)
                     .then(response => {
-                        this.product = response
-                        this.showModal = true;
+                        this.paciente = response
+                        //this.showModal = true;
                         this.update = true;
                     })
                     .catch( errors => {
-                        this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Produto')
+                        //this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente')
                     })
             },
-            searchForm(filter) {
+            /*searchForm(filter) {
                 this.search = filter;
                 this.loadProducts(1)
             },
@@ -106,32 +129,45 @@
                 this.showModal = true;
                 this.update = false;
                 this.reset()
-            },
+            },*/
             reset () {
-                this.product = {
+                this.paciente = {
                     id: '',
-                    name: '',
-                    description: '',
-                    category_id: '',
+                    cpf: '',
+                    nome: '',
+                    rg: '',
+                    cartao_sus: '',
+                    sexo: '',
+                    data_nasc: '',
+                    nome_mae: '',
+                    telefone: '',
+                    cep: '',
+                    logradouro: '',
+                    numero: '',
+                    quadra: '',
+                    lote: '',
+                    complemento: '',
+                    bairro: '',
+                    cidade: '',
+                    uf: '',
                 }
             },
-
             destroy (id) {
-                this.$store.dispatch('destroyProduct', id)
+                /*this.$store.dispatch('destroyProduct', id)
                     .then(response => {
                         this.$snotify.success('Tudo certo', 'Deletou o Produto')
                         this.loadProducts(1)
                     })
                     .catch( errors => {
-                        this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Produto')
-                    })
-            }*/
+                        //this.$snotify.error('Algo de Errado', 'Não foi possível deletar o Produto')
+                    })*/
+            }
         },
         components: {
             paginate: PaginationComponent,
             //search: SearchComponent,
             PacienteFormComponent,
-            //destroy: ButtonDestroyComponent
+            destroy: ButtonDestroyComponent
         }
     }
 </script>

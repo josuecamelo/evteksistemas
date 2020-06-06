@@ -18,9 +18,6 @@ class PacienteController extends Controller
     public function __construct(Paciente $pacienteModel)
     {
         $this->pacienteModel = $pacienteModel;
-        $this->middleware('auth:api')->except([
-            'index', 'show'
-        ]);
     }
 
     /**
@@ -34,6 +31,7 @@ class PacienteController extends Controller
 
         return response()->json($pacientes);
     }
+
 
 
     /**
@@ -70,13 +68,13 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function show($id)
+    public function show($id)
     {
-        if (!$product = $this->product->with('category')->find($id))
+        if (!$paciente = $this->pacienteModel->find($id))
             return response()->json(['error' => 'Not Found'], 404);
 
-        return response()->json($product);
-    }*/
+        return response()->json($paciente);
+    }
 
 
     /**

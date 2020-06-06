@@ -6,8 +6,10 @@
         </ul>
 
         <div class="container-fluid">
-            <div>
-                <router-view></router-view>
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <router-view></router-view>
+                </div>
             </div>
         </div>
     </div>

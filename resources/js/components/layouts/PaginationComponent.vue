@@ -1,13 +1,13 @@
 <template>
     <ul class="pagination">
-        <li v-if="pagination.current_page > 1">
-            <a href="#" class="page-link" aria-label="Previous" @click.prevent="changePage(1)">
-                <span aria-hidden="true">««</span>
-            </a>
-        </li>
+<!--        <li v-if="pagination.current_page > 1">-->
+<!--            <a href="#" class="page-link" aria-label="Previous" @click.prevent="changePage(1)">-->
+<!--                <span aria-hidden="true">««</span>-->
+<!--            </a>-->
+<!--        </li>-->
         <li v-if="pagination.current_page > 1">
             <a href="#" class="page-link" aria-label="Previous" @click.prevent="changePage(pagination.current_page - 1)">
-                <span aria-hidden="true">«</span>
+                <span aria-hidden="true">Voltar</span>
             </a>
         </li>
 
@@ -19,15 +19,15 @@
 
         <li v-if="pagination.current_page < pagination.last_page">
             <a href="#" class="page-link" aria-label="Next" @click.prevent="changePage(pagination.current_page + 1)">
-                <span aria-hidden="true">»</span>
+                <span aria-hidden="true">Próximo</span>
             </a>
         </li>
 
-        <li v-if="pagination.current_page < pagination.last_page">
-            <a href="#" class="page-link" aria-label="Next" @click.prevent="changePage(pagination.last_page)">
-                <span aria-hidden="true">»»</span>
-            </a>
-        </li>
+<!--        <li v-if="pagination.current_page < pagination.last_page">-->
+<!--            <a href="#" class="page-link" aria-label="Next" @click.prevent="changePage(pagination.last_page)">-->
+<!--                <span aria-hidden="true">»»</span>-->
+<!--            </a>-->
+<!--        </li>-->
     </ul>
 </template>
 

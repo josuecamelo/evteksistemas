@@ -29,21 +29,21 @@ export default {
                 })
             // .finally(() => context.commit('PRELOADER', false))
         })
-    },
+    },*/
 
-    loadProduct (context, id) {
-        context.commit('CHANGE_PRELOADER', true)
+    loadPaciente (context, id) {
+        //context.commit('CHANGE_PRELOADER', true)
         return new Promise((resolve, reject) => {
             axios.get(`${URL_BASE}${RESOURCE}/${id}`)
                 .then(response => resolve(response.data))
                 .catch(error => reject())
                 .finally( () => {
-                    context.commit('CHANGE_PRELOADER', false)
+                    //context.commit('CHANGE_PRELOADER', false)
                 })
         })
     },
 
-    updateProduct (context, formData) {
+    /*updateProduct (context, formData) {
         context.commit('CHANGE_PRELOADER', true)
 
         formData.append('_method', 'PUT')
