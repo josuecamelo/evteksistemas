@@ -2505,14 +2505,11 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              return _this.$snotify.remove(toast.id);
+              _this.$snotify.remove(toast.id), _this.reset();
             }
           }]
-        });
+        }); //this.$emit('success')
 
-        _this.reset();
-
-        _this.$emit('success');
       })["catch"](function (errors) {
         _this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
           timeout: 10000,
@@ -2523,12 +2520,12 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              return _this.$snotify.remove(toast.id);
+              _this.$snotify.remove(toast.id);
             }
           }]
         });
 
-        _this.errors = errors.data.errors;
+        _this.errors = errors.response.data.errors;
       });
     },
     reset: function reset() {

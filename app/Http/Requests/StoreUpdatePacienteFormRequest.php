@@ -26,8 +26,13 @@ class StoreUpdatePacienteFormRequest extends FormRequest
         $id = $this->segment(4);
         return [
             'cpf'          => "required|unique:pacientes,cpf,{$id},id",
-
             //'imagem'         => 'image',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'cpf.required' => 'Informe o CPF',
         ];
     }
 }

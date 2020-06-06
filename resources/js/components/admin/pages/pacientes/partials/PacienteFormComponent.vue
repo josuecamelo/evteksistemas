@@ -256,13 +256,15 @@
                             pauseOnHover: false,
                             position: 'centerCenter',
                             buttons: [
-                                {text: 'Ok', action: (toast) => this.$snotify.remove(toast.id),},
+                                {text: 'Ok', action: (toast) => {
+                                    this.$snotify.remove(toast.id),
+                                    this.reset()
+                                }},
                             ]
                         })
-                        this.reset()
-                        this.$emit('success')
+                        //this.$emit('success')
                     })
-                    .catch(errors => {
+                    .catch( (errors) => {
                         this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
                             timeout: 10000,
                             showProgressBar: true,
@@ -270,10 +272,12 @@
                             pauseOnHover: false,
                             position: 'centerCenter',
                             buttons: [
-                                {text: 'Ok', action: (toast) => this.$snotify.remove(toast.id),},
+                                {text: 'Ok', action: (toast) => {
+                                    this.$snotify.remove(toast.id)
+                                }},
                             ]
                         })
-                        this.errors = errors.data.errors
+                        this.errors = errors.response.data.errors;
                     })
             },
             reset() {
