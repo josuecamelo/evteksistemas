@@ -104,17 +104,28 @@
                 this.$store.dispatch('loadPacientes', {...this.params, page})
             },
             edit (id) {
-                this.reset()
-
-                this.$store.dispatch('loadPaciente', id)
-                    .then(response => {
-                        this.paciente = response
-                        //this.showModal = true;
-                        this.update = true;
-                    })
-                    .catch( errors => {
-                        //this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente')
-                    })
+                this.$snotify.info(`Deseja realmente atualizar o cadastro do Paciente?`, 'Alerta', {
+                    timeout: 10000,
+                    showProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    position: 'centerCenter',
+                    buttons: [
+                        {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
+                        {text: 'Sim', action: (toast) => {
+                            this.reset()
+                            this.$store.dispatch('loadPaciente', id)
+                                .then(response => {
+                                    this.paciente = response
+                                    this.update = true;
+                                })
+                                .catch( errors => {
+                                    this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente')
+                                })
+                            this.$snotify.remove(toast.id)
+                        }},
+                    ]
+                })
             },
             /*searchForm(filter) {
                 this.search = filter;

@@ -125,9 +125,9 @@ class PacienteController extends Controller
         if (!$paciente = $this->pacienteModel->find($id))
             return response()->json(['error' => 'Not Found'], 404);
 
-        /*if ($product->image) {
-            if (Storage::exists("{$this->path}/{$product->image}"))
-                Storage::delete("{$this->path}/{$product->image}");
+        /*if ($paciente->imagem) {
+            if (Storage::exists("{$this->path}/{$paciente->imagem}"))
+                Storage::delete("{$this->path}/{$paciente->imagem}");
         }*/
 
         $paciente->delete();

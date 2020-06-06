@@ -2137,12 +2137,32 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
     edit: function edit(id) {
       var _this = this;
 
-      this.reset();
-      this.$store.dispatch('loadPaciente', id).then(function (response) {
-        _this.paciente = response; //this.showModal = true;
+      this.$snotify.info("Deseja realmente atualizar o cadastro do Paciente?", 'Alerta', {
+        timeout: 10000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        position: 'centerCenter',
+        buttons: [{
+          text: 'Não',
+          action: function action(toast) {
+            return _this.$snotify.remove(toast.id);
+          }
+        }, {
+          text: 'Sim',
+          action: function action(toast) {
+            _this.reset();
 
-        _this.update = true;
-      })["catch"](function (errors) {//this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente')
+            _this.$store.dispatch('loadPaciente', id).then(function (response) {
+              _this.paciente = response;
+              _this.update = true;
+            })["catch"](function (errors) {
+              _this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente');
+            });
+
+            _this.$snotify.remove(toast.id);
+          }
+        }]
       });
     },
 
