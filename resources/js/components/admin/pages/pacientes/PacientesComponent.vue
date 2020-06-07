@@ -1,7 +1,7 @@
 <template>
     <div>
         <paciente-form-component :paciente="paciente" :update="update" @success="success" />
-
+        
         <table class="table table-sm table-responsive-sm table-striped">
             <thead class="thead-light">
             <tr>
@@ -133,6 +133,7 @@
             },
            */
             success () {
+                this.update = false;
                 this.loadPacientes(1)
             },
             reset () {

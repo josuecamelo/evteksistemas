@@ -2174,6 +2174,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
     },
     */
     success: function success() {
+      this.update = false;
       this.loadPacientes(1);
     },
     reset: function reset() {
@@ -2497,12 +2498,10 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              _this.$snotify.remove(toast.id), console.log('adf');
+              _this.$snotify.remove(toast.id), _this.reset();
             }
           }]
         });
-
-        _this.reset();
 
         _this.$emit('success');
       })["catch"](function (errors) {
@@ -2527,12 +2526,26 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = {};
       this.imagePreview = null;
       this.upload = null;
-      /*this.product = {
-          id: '',
-          name: '',
-          description: '',
-          category_id: '',
-      }*/
+      this.paciente = {
+        id: '',
+        cpf: '',
+        nome: '',
+        rg: '',
+        cartao_sus: '',
+        sexo: '',
+        data_nasc: '',
+        nome_mae: '',
+        telefone: '',
+        cep: '',
+        logradouro: '',
+        numero: '',
+        quadra: '',
+        lote: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        uf: ''
+      };
     },
     onFileChange: function onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files; //se não há arquivo retorna null
@@ -39434,19 +39447,19 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.paciente.rg,
-                        expression: "paciente.rg"
+                        value: _vm.paciente.nome_mae,
+                        expression: "paciente.nome_mae"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text", placeholder: "Nome da Mãe" },
-                    domProps: { value: _vm.paciente.rg },
+                    domProps: { value: _vm.paciente.nome_mae },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.paciente, "rg", $event.target.value)
+                        _vm.$set(_vm.paciente, "nome_mae", $event.target.value)
                       }
                     }
                   }),

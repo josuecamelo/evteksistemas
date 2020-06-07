@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-6">
                         <div :class="['form-group', {'has-error': errors.nome_mae }]">
-                            <input type="text" v-model="paciente.rg" class="form-control" placeholder="Nome da Mãe"/>
+                            <input type="text" v-model="paciente.nome_mae" class="form-control" placeholder="Nome da Mãe"/>
                             <div v-if="errors.nome_mae">
                                 {{ errors.nome_mae[0] }}
                             </div>
@@ -257,11 +257,10 @@
                             buttons: [
                                 {text: 'Ok', action: (toast) => {
                                     this.$snotify.remove(toast.id),
-                                    console.log('adf');
+                                    this.reset()
                                 }},
                             ]
                         })
-                        this.reset()
                         this.$emit('success')
                     })
                     .catch( (errors) => {
@@ -284,12 +283,26 @@
                 this.errors = {}
                 this.imagePreview = null
                 this.upload = null
-                /*this.product = {
+                this.paciente = {
                     id: '',
-                    name: '',
-                    description: '',
-                    category_id: '',
-                }*/
+                    cpf: '',
+                    nome: '',
+                    rg: '',
+                    cartao_sus: '',
+                    sexo: '',
+                    data_nasc: '',
+                    nome_mae: '',
+                    telefone: '',
+                    cep: '',
+                    logradouro: '',
+                    numero: '',
+                    quadra: '',
+                    lote: '',
+                    complemento: '',
+                    bairro: '',
+                    cidade: '',
+                    uf: '',
+                }
             },
             onFileChange(e) {
                 let files = e.target.files || e.dataTransfer.files
