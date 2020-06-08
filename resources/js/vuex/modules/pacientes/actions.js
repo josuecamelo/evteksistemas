@@ -22,7 +22,7 @@ export default {
             axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
                 .then(response => resolve())
                 .catch( (errors) => {
-                    reject(errors.response)
+                    reject(errors)
                 })
             // .finally(() => context.commit('PRELOADER', false))
         })

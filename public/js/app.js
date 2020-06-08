@@ -2220,6 +2220,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
               _this.update = true;
             })["catch"](function (errors) {
               _this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente');
+
+              _this.errors = errors.response.data.errors;
             });
 
             _this.$snotify.remove(toast.id);
@@ -58668,7 +58670,7 @@ var CONFIGS = {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), formData, CONFIGS).then(function (response) {
         return resolve();
       })["catch"](function (errors) {
-        reject(errors.response);
+        reject(errors);
       }); // .finally(() => context.commit('PRELOADER', false))
     });
   },

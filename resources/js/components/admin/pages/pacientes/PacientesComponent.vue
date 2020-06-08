@@ -140,8 +140,9 @@
                                     this.paciente = response
                                     this.update = true;
                                 })
-                                .catch( errors => {
+                                .catch( (errors) => {
                                     this.$snotify.error('Algo de Errado', 'Erro ao Carregar o Paciente')
+                                    this.errors = errors.response.data.errors;
                                 })
                             this.$snotify.remove(toast.id)
                         }},

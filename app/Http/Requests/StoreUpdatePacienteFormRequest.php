@@ -46,6 +46,7 @@ class StoreUpdatePacienteFormRequest extends FormRequest
     public function messages(){
         return [
             'cpf.required' => 'Informe o CPF',
+            'nome.required' => 'Informe o Nome',
             'sexo.required' => 'Informe o Sexo',
             'sexo.in' => "Informe Masculino ou Feminino",
             'rg.required' => 'Informe o RG',
