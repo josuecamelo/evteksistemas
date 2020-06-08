@@ -27,7 +27,6 @@ class PacienteController extends Controller
     public function index(Request $request)
     {
         $pacientes = $this->pacienteModel->getResults($request->all(), $this->totalPage);
-
         return response()->json($pacientes);
     }
 

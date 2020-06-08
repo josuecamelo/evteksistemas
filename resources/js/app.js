@@ -12,6 +12,7 @@ Vue.use(VueTheMask)
 
 Vue.component('admin-component', require('./components/admin/AdminComponent').default);
 
+
 const app = new Vue({
     router,
     store,

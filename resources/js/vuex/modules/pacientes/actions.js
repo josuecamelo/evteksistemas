@@ -21,8 +21,8 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
                 .then(response => resolve())
-                .catch(error => {
-                    reject(error.response)
+                .catch( (errors) => {
+                    reject(errors.response)
                 })
             // .finally(() => context.commit('PRELOADER', false))
         })

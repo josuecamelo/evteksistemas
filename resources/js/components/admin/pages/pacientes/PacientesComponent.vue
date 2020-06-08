@@ -1,7 +1,15 @@
 <template>
     <div>
         <paciente-form-component :paciente="paciente" :update="update" @success="success" />
-        
+
+        <div class="col-md-6 float-right" style="margin-left: -15px !important;">
+            <div class="form-group">
+                <div class="col-md-6 float-right">
+                    <search @search="searchForm"></search>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-sm table-responsive-sm table-striped">
             <thead class="thead-light">
             <tr>
@@ -40,6 +48,7 @@
     import PaginationComponent from '../../../layouts/PaginationComponent'
     import PacienteFormComponent from "./partials/PacienteFormComponent";
     import ButtonDestroyComponent from "../../layouts/ButtonDestroyComponent";
+    import SearchComponent from "../../layouts/SearchComponent";
 
     Vue.filter('calcIdade', function (value) {
         let d = new Date,
@@ -127,11 +136,10 @@
                     ]
                 })
             },
-            /*searchForm(filter) {
+            searchForm(filter) {
                 this.search = filter;
-                this.loadProducts(1)
+                this.loadPacientes(1)
             },
-           */
             success () {
                 this.update = false;
                 this.loadPacientes(1)
@@ -181,8 +189,8 @@
         },
         components: {
             paginate: PaginationComponent,
-            //search: SearchComponent,
             PacienteFormComponent,
+            search: SearchComponent,
             destroy: ButtonDestroyComponent
         }
     }

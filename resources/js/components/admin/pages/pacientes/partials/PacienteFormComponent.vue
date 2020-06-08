@@ -169,13 +169,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 float-right" style="margin-left: -10px !important;">
-                <div class="form-group">
-                    <div class="col-md-6 float-right">
-                        <input type="text" style="margin-left: 15px !important;" placeholder="Buscar..." class="form-control" />
-                    </div>
-                </div>
-            </div>
         </form>
     </div>
 </template>
@@ -328,6 +321,9 @@
                 this.imagePreview = null
                 this.upload = null
             }
+        },
+        components: {
+
         }
     }
 </script>

@@ -50,9 +50,15 @@ class Paciente extends Model
 
     public function getResults($data, $total)
     {
-        return $this
-            ->orderBy('id', 'DESC')
-            ->paginate($total);
+         return $this->where(function ($query) use ($data) {
+             if (isset($data['filter'])) {
+                 $filter = $data['filter'];
+                 $query->whereRaw('LOWER(`nome`) LIKE ? ',['%'.trim(strtolower($filter)).'%']);
+                    //->orWhere('nome', 'LIKE', "%{$filter}%");
+             }
+         })
+        ->orderBy('nome', 'ASC')
+        ->paginate($total);
     }
 
     protected function removerPontuacoes($valor){
