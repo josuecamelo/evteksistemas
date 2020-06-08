@@ -25,7 +25,20 @@ class StoreUpdatePacienteFormRequest extends FormRequest
     {
         $id = $this->segment(4);
         return [
-            'cpf'          => "required|unique:pacientes,cpf,{$id},id",
+            'cpf' => "required|unique:pacientes,cpf,{$id},id",
+            'nome'=> "required|min:5|max:100",
+            'rg' => "required",
+            'sexo' => "required|in:Masculino,Feminino",
+            'data_nasc' => "required",
+            'nome_mae' => "required",
+            'telefone' => "required",
+            'cep' => "required",
+            'logradouro' => "required",
+            'quadra' => "required",
+            'lote' => "required",
+            'bairro'=> "required",
+            'cidade'=> "required",
+            'uf' => "required|min:2"
             //'imagem'         => 'image',
         ];
     }
@@ -33,6 +46,19 @@ class StoreUpdatePacienteFormRequest extends FormRequest
     public function messages(){
         return [
             'cpf.required' => 'Informe o CPF',
+            'sexo.required' => 'Informe o Sexo',
+            'sexo.in' => "Informe Masculino ou Feminino",
+            'rg.required' => 'Informe o RG',
+            'data_nasc.required' => 'Informe a Data de Nascimento',
+            'nome_mae.required' => 'Informe o Nome da Mãe',
+            'telefone.required' => 'Informe o Telefone',
+            'cep.required' => 'Informe o Telefone',
+            'logradouro.required' => 'Informe o Logradouro',
+            'quadra.required' => 'Informe o Quadra',
+            'lote.required' => 'Informe o Lote',
+            'bairro.required' => 'Informe o Bairro',
+            'cidade.required' => 'Informe a Cidade',
+            'uf.required' => 'Informe a UF',
         ];
     }
 }
