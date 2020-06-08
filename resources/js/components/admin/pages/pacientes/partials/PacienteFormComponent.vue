@@ -241,7 +241,7 @@
 
                 this.$store.dispatch(action, formData)
                     .then(() => {
-                        this.$snotify.success('Paciente Cadastro com Sucesso', 'Alerta de Sucesso', {
+                        this.$snotify.success('Paciente ' + msg + ' com Sucesso', 'Alerta de Sucesso', {
                             timeout: 10000,
                             showProgressBar: true,
                             closeOnClick: true,

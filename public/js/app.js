@@ -2565,7 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('cidade', this.paciente.cidade);
       formData.append('uf', this.paciente.uf);
       this.$store.dispatch(action, formData).then(function () {
-        _this.$snotify.success('Paciente Cadastro com Sucesso', 'Alerta de Sucesso', {
+        _this.$snotify.success('Paciente ' + msg + ' com Sucesso', 'Alerta de Sucesso', {
           timeout: 10000,
           showProgressBar: true,
           closeOnClick: true,
