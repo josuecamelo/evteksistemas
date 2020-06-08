@@ -2327,6 +2327,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _directives_focus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../directives/focus */ "./resources/js/directives/focus.js");
 //
 //
 //
@@ -2502,6 +2503,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     update: {
@@ -2541,8 +2543,21 @@ __webpack_require__.r(__webpack_exports__);
     }*/
   },
   methods: {
-    onSubmit: function onSubmit() {
+    checkCep: function checkCep($event) {
       var _this = this;
+
+      var cep = $event.target.value;
+      axios.get("https://viacep.com.br/ws/".concat(cep, "/json/")).then(function (response) {
+        _this.paciente.logradouro = response.data.logradouro;
+        _this.paciente.bairro = response.data.bairro;
+        _this.paciente.cidade = response.data.localidade;
+        _this.paciente.uf = response.data.uf;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    onSubmit: function onSubmit() {
+      var _this2 = this;
 
       var action = this.update ? 'updatePaciente' : 'storePaciente';
       var msg = this.update ? 'Atualizado' : 'Cadastrado';
@@ -2567,7 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('cidade', this.paciente.cidade);
       formData.append('uf', this.paciente.uf);
       this.$store.dispatch(action, formData).then(function () {
-        _this.$snotify.success('Paciente ' + msg + ' com Sucesso', 'Alerta de Sucesso', {
+        _this2.$snotify.success('Paciente ' + msg + ' com Sucesso', 'Alerta de Sucesso', {
           timeout: 10000,
           showProgressBar: true,
           closeOnClick: true,
@@ -2576,14 +2591,14 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              _this.$snotify.remove(toast.id), _this.reset();
+              _this2.$snotify.remove(toast.id), _this2.reset();
             }
           }]
         });
 
-        _this.$emit('success');
+        _this2.$emit('success');
       })["catch"](function (errors) {
-        _this.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
+        _this2.$snotify.error('O Paciente não pode ser ' + msg + '. Tente Novamente', 'Alerta de Erro', {
           timeout: 10000,
           showProgressBar: true,
           closeOnClick: true,
@@ -2592,12 +2607,12 @@ __webpack_require__.r(__webpack_exports__);
           buttons: [{
             text: 'Ok',
             action: function action(toast) {
-              _this.$snotify.remove(toast.id);
+              _this2.$snotify.remove(toast.id);
             }
           }]
         });
 
-        _this.errors = errors.response.data.errors;
+        _this2.errors = errors.response.data.errors;
       });
     },
     reset: function reset() {
@@ -2636,12 +2651,12 @@ __webpack_require__.r(__webpack_exports__);
       this.previewImage(files[0]);
     },
     previewImage: function previewImage(file) {
-      var _this2 = this;
+      var _this3 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this2.imagePreview = e.target.result;
+        _this3.imagePreview = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -2651,7 +2666,10 @@ __webpack_require__.r(__webpack_exports__);
       this.upload = null;
     }
   },
-  components: {}
+  components: {},
+  directives: {
+    'focus': _directives_focus__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -39359,10 +39377,16 @@ var render = function() {
             _c("div", { staticClass: "col-2" }, [
               _c(
                 "div",
-                { class: ["form-group", { "has-error": _vm.errors.cpf }] },
+                { class: ["form-group", { "is-invalid": _vm.errors.cpf }] },
                 [
                   _c("input", {
                     directives: [
+                      {
+                        name: "focus",
+                        rawName: "v-focus",
+                        value: true,
+                        expression: "true"
+                      },
                       {
                         name: "mask",
                         rawName: "v-mask",
@@ -39670,6 +39694,12 @@ var render = function() {
                   _c("input", {
                     directives: [
                       {
+                        name: "mask",
+                        rawName: "v-mask",
+                        value: ["(##) ####-####", "(##) #####-####"],
+                        expression: "['(##) ####-####', '(##) #####-####']"
+                      },
+                      {
                         name: "model",
                         rawName: "v-model",
                         value: _vm.paciente.telefone,
@@ -39728,6 +39758,7 @@ var render = function() {
                     attrs: { type: "text", maxlength: "9", placeholder: "CEP" },
                     domProps: { value: _vm.paciente.cep },
                     on: {
+                      blur: _vm.checkCep,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -58590,6 +58621,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NAME_TOKEN", function() { return NAME_TOKEN; });
 var URL_BASE = '/api/v1/';
 var NAME_TOKEN = 'TOKEN_AUTH';
+
+/***/ }),
+
+/***/ "./resources/js/directives/focus.js":
+/*!******************************************!*\
+  !*** ./resources/js/directives/focus.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  inserted: function inserted(el, binding) {
+    if (binding.value === true) el.focus();
+  }
+});
 
 /***/ }),
 

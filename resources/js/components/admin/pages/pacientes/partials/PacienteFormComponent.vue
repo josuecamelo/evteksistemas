@@ -7,8 +7,8 @@
             <div class="col-md-10 float-right">
                 <div class="form-row">
                     <div class="col-2">
-                        <div :class="['form-group', {'has-error': errors.cpf }]">
-                            <input type="text" v-mask="'###.###.###-##'" maxlength="14" v-model="paciente.cpf" class="form-control" placeholder="CPF"/>
+                        <div :class="['form-group', {'is-invalid': errors.cpf }]">
+                            <input type="text" v-focus="true" v-mask="'###.###.###-##'" maxlength="14" v-model="paciente.cpf" class="form-control" placeholder="CPF"/>
                             <div v-if="errors.cpf">
                                 {{ errors.cpf[0] }}
                             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-2">
                         <div :class="['form-group', {'has-error': errors.telefone }]">
-                            <input type="text" v-model="paciente.telefone" class="form-control" placeholder="Telefone"/>
+                            <input type="text" v-mask="['(##) ####-####', '(##) #####-####']" v-model="paciente.telefone" class="form-control" placeholder="Telefone"/>
                             <div v-if="errors.telefone">
                                 {{ errors.telefone[0] }}
                             </div>
@@ -82,7 +82,7 @@
                 <div class="form-row">
                     <div class="col-2">
                         <div :class="['form-group', {'has-error': errors.cep }]">
-                            <input type="text" v-model="paciente.cep" maxlength="9" v-mask="'#####-###'" class="form-control" placeholder="CEP"/>
+                            <input type="text" @blur="checkCep" v-model="paciente.cep" maxlength="9" v-mask="'#####-###'" class="form-control" placeholder="CEP"/>
                             <div v-if="errors.cep">
                                 {{ errors.cep[0] }}
                             </div>
@@ -174,6 +174,7 @@
 </template>
 
 <script>
+    import Focus from '../../../../../directives/focus'
     export default {
         props: {
             update: {
@@ -212,6 +213,17 @@
             }*/
         },
         methods: {
+            checkCep ($event) {
+                let cep = $event.target.value
+                axios.get(`https://viacep.com.br/ws/${ cep }/json/`)
+                    .then( response => {
+                        this.paciente.logradouro = response.data.logradouro
+                        this.paciente.bairro = response.data.bairro
+                        this.paciente.cidade = response.data.localidade
+                        this.paciente.uf = response.data.uf
+                    })
+                    .catch( error => console.log(error) )
+            },
             onSubmit() {
                 let action = this.update ? 'updatePaciente' : 'storePaciente'
                 let msg = this.update ? 'Atualizado' : 'Cadastrado'
@@ -324,7 +336,10 @@
         },
         components: {
 
-        }
+        },
+        directives: {
+            'focus': Focus
+        },
     }
 </script>
 
@@ -333,3 +348,4 @@
         max-width: 60px;
     }
 </style>
+
