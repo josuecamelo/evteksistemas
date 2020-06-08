@@ -2119,6 +2119,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2149,6 +2157,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
     return {
       search: '',
       order: 'ASC',
+      deleted: '',
       paciente: {
         id: '',
         cpf: '',
@@ -2169,7 +2178,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
         cidade: '',
         uf: ''
       },
-      update: false
+      update: false,
+      cadastrosAtivos: false
     };
   },
   computed: {
@@ -2180,7 +2190,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
       return {
         page: this.pacientes.current_page,
         filter: this.search,
-        order: this.order
+        order: this.order,
+        deleted: this.deleted
       };
     }
   },
@@ -2226,6 +2237,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
         this.order = 'DESC';
       } else {
         this.order = 'ASC';
+      }
+
+      this.loadPacientes(1);
+    },
+    enabledExcludedRecord: function enabledExcludedRecord() {
+      this.cadastrosAtivos = !this.cadastrosAtivos;
+
+      if (this.cadastrosAtivos) {
+        this.deleted = 'f';
+      } else {
+        this.deleted = '';
       }
 
       this.loadPacientes(1);
@@ -39177,6 +39199,37 @@ var render = function() {
               1
             )
           ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-md-12 float-left",
+          staticStyle: { "padding-bottom": "5px" }
+        },
+        [
+          _c(
+            "button",
+            {
+              attrs: {
+                disabled: _vm.cadastrosAtivos ? !_vm.cadastrosAtivos : ""
+              },
+              on: { click: _vm.enabledExcludedRecord }
+            },
+            [_vm._v("Cadastros Ativos")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              attrs: {
+                disabled: !_vm.cadastrosAtivos ? _vm.cadastrosAtivos : ""
+              },
+              on: { click: _vm.enabledExcludedRecord }
+            },
+            [_vm._v("Cadastros Excluídos")]
+          )
         ]
       ),
       _vm._v(" "),

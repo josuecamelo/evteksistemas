@@ -51,16 +51,23 @@ class Paciente extends Model
     public function getResults($data, $total)
     {
         $order = $data['order'];
+        $showDeleted = !isset($data['deleted']) ? 0 : 1;
 
-        return $this->where(function ($query) use ($data) {
+        $result = $this->where(function ($query) use ($data) {
              if (isset($data['filter'])) {
                  $filter = $data['filter'];
-                 $query->whereRaw('LOWER(`nome`) LIKE ? ',['%'.trim(strtolower($filter)).'%']);
-                    //->orWhere('nome', 'LIKE', "%{$filter}%");
+                 $query
+                     ->whereRaw('LOWER(`nome`) LIKE ? ',['%'.trim(strtolower($filter)).'%'])
+                     ->orWhere('cpf', 'LIKE', "%{$filter}%");
              }
         })
-        ->orderBy('nome', $order)
-        ->paginate($total);
+        ->orderBy('nome', $order);
+
+        if($showDeleted){
+            $result->onlyTrashed();
+        }
+
+        return $result->paginate($total);
     }
 
     protected function removerPontuacoes($valor){

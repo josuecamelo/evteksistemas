@@ -10,6 +10,14 @@
             </div>
         </div>
 
+
+
+
+        <div class="col-md-12 float-left" style="padding-bottom: 5px;">
+            <button @click="enabledExcludedRecord" :disabled="cadastrosAtivos ? !cadastrosAtivos : ''">Cadastros Ativos</button>
+            <button @click="enabledExcludedRecord" :disabled="!cadastrosAtivos ? cadastrosAtivos : ''">Cadastros Excluídos</button>
+        </div>
+
         <table class="table table-sm table-responsive-sm table-striped">
             <thead class="thead-light">
             <tr>
@@ -75,6 +83,7 @@
             return {
                 search: '',
                 order: 'ASC',
+                deleted: '',
                 paciente: {
                     id: '',
                     cpf: '',
@@ -96,6 +105,7 @@
                     uf: '',
                 },
                 update: false,
+                cadastrosAtivos: false
             }
         },
         computed: {
@@ -106,7 +116,8 @@
                 return {
                     page: this.pacientes.current_page,
                     filter: this.search,
-                    order: this.order
+                    order: this.order,
+                    deleted: this.deleted
                 }
             }
         },
@@ -145,6 +156,16 @@
                   this.order = 'ASC'
               }
               this.loadPacientes(1)
+            },
+            enabledExcludedRecord(){
+                this.cadastrosAtivos = !this.cadastrosAtivos;
+
+                if(this.cadastrosAtivos){
+                    this.deleted = 'f'
+                } else {
+                    this.deleted = ''
+                }
+                this.loadPacientes(1)
             },
             searchForm(filter) {
                 this.search = filter;
