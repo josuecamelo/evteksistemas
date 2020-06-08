@@ -2148,6 +2148,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
   data: function data() {
     return {
       search: '',
+      order: 'ASC',
       paciente: {
         id: '',
         cpf: '',
@@ -2178,7 +2179,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
     params: function params() {
       return {
         page: this.pacientes.current_page,
-        filter: this.search
+        filter: this.search,
+        order: this.order
       };
     }
   },
@@ -2218,6 +2220,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('calcIdade', function (value) 
           }
         }]
       });
+    },
+    ordenar: function ordenar() {
+      if (this.order == 'ASC') {
+        this.order = 'DESC';
+      } else {
+        this.order = 'ASC';
+      }
+
+      this.loadPacientes(1);
     },
     searchForm: function searchForm(filter) {
       this.search = filter;
@@ -39173,7 +39184,19 @@ var render = function() {
         "table",
         { staticClass: "table table-sm table-responsive-sm table-striped" },
         [
-          _vm._m(0),
+          _c("thead", { staticClass: "thead-light" }, [
+            _c("tr", [
+              _c("th", { on: { click: _vm.ordenar } }, [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Nome")])
+              ]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Idade")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("CPF")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "200" } }, [_vm._v("Ações")])
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "tbody",
@@ -39239,24 +39262,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", [_vm._v("Nome")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Idade")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("CPF")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "200" } }, [_vm._v("Ações")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

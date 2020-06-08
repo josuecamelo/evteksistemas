@@ -13,7 +13,7 @@
         <table class="table table-sm table-responsive-sm table-striped">
             <thead class="thead-light">
             <tr>
-                <th>Nome</th>
+                <th @click="ordenar"><a href="#">Nome</a></th>
                 <th>Idade</th>
                 <th>CPF</th>
                 <th width="200">Ações</th>
@@ -74,6 +74,7 @@
         data() {
             return {
                 search: '',
+                order: 'ASC',
                 paciente: {
                     id: '',
                     cpf: '',
@@ -105,6 +106,7 @@
                 return {
                     page: this.pacientes.current_page,
                     filter: this.search,
+                    order: this.order
                 }
             }
         },
@@ -135,6 +137,14 @@
                         {text: 'Não', action: (toast) => this.$snotify.remove(toast.id),},
                     ]
                 })
+            },
+            ordenar(){
+              if(this.order == 'ASC'){
+                  this.order = 'DESC'
+              } else {
+                  this.order = 'ASC'
+              }
+              this.loadPacientes(1)
             },
             searchForm(filter) {
                 this.search = filter;
